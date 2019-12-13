@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import se.kth.homework_4.model.CurrencyService;
 import se.kth.homework_4.model.Rate;
 import se.kth.homework_4.model.RateService;
-
-import javax.swing.text.html.HTMLDocument;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
