@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Convert currencies!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/admin.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+<section class="hero is-info">
+    <div class="hero-body">
+        <div class="container center">
+            <h1 class="title" style="margin-left: 20%; ">
+                Admin page
+            </h1>
+            <h2 class="subtitle" style="margin-left: 20%; ">
+                ;)
+            </h2>
+        </div>
+    </div>
+</section>
+<div class="center">
+    <h2 class="is-error" th:text="${error}"></h2>
+    <label>From currency: </label>
+    <div class="control">
+        <div class="select is-large">
+            <select>
+                <option th:each="currency : ${currencies}"
+                        th:value="${currency.code}"
+                        th:text="${currency.code}"
+                        th:selected="${currentCurrency.code == currency.code}"></option>
+            </select>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th><abbr title="From currency">From</abbr></th>
+            <th><abbr title="To currency">To</abbr></th>
+            <th>Rate</th>
+            <th><abbr title="Number of uses">#uses</abbr></th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>id</th>
+            <th><abbr title="From currency">From</abbr></th>
+            <th><abbr title="To currency">To</abbr></th>
+            <th>Rate</th>
+            <th><abbr title="Number of uses">#uses</abbr></th>
+        </tr>
+        </tfoot>
+        <tbody id="tablebody">
+        <tr th:each="rateth:${rates}" th:hidden="${rateth.fromCurrency.code}  != ${currentCurrency.code}">
+            <th th:text="${rateth.id}"></th>
+            <th th:text="${rateth.fromCurrency.code}"></th>
+            <th th:text="${rateth.toCurrency.code}"></th>
+            <th>
+                <input class="input is-small" type="number" min="0" th:value="${rateth.rate}" readonly>
+            </th>
+            <th th:text="${rateth.numberOfUses}"></th>
+            <th><button class="button is-primary is-small">EDIT</button></th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

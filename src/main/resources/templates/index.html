@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Convert currencies!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+    <section class="hero is-info">
+        <div class="hero-body">
+            <div class="container center">
+                <h1 class="title" style="margin-left: 20%; ">
+                    Convert currencies
+                </h1>
+                <h2 class="subtitle" style="margin-left: 20%; ">
+                    ;)
+                </h2>
+            </div>
+        </div>
+    </section>
+    <h2 class="is-error" th:text="${error}"></h2>
+    <form th:object="${conversion}" th:action="@{/convert}" method="post" style="padding: 80px; max-width: 1000px; margin: 0 auto">
+        <div class="columns">
+            <div class="column">
+                <label>From currency: </label>
+                <div class="control">
+                    <div class="select is-large">
+                        <select th:field="*{fromCurrency}">
+                            <option th:each="currency : ${currencies}"
+                                    th:value="${currency.code}"
+                                    th:text="${currency.code}"
+                                    th:selected="${conversion.fromCurrency == currency.code}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <label>To currency: </label>
+                <div class="control">
+                    <div class="select is-large">
+                        <select th:field="*{toCurrency}">
+                            <option th:each="currency : ${currencies}"
+                                    th:value="${currency.code}"
+                                    th:text="${currency.code}"
+                                    th:selected="${conversion.toCurrency == currency.code}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="field column">
+                <label>Amount: </label>
+                <div class="control" style="max-width: 500px">
+                    <input class="input is-large" type="number" th:field="*{amount}" th:value="${conversion.amount}"/>
+                </div>
+            </div>
+
+            <div class="field column">
+                <label >Result: </label>
+                <div class="control" style="max-width: 500px">
+                    <input id="result" class="input is-large" th:field="*{result}" th:value="${conversion.result}" type="number"  readonly />
+                </div>
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>
